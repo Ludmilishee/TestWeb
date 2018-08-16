@@ -37,7 +37,7 @@ abstract class WeatherWorker {
         return response.toString();
     }
 
-    public WeatherWorker() throws MalformedURLException {}
+    WeatherWorker() throws MalformedURLException {}
 
-    abstract public void parseResponse() throws IOException;
+    abstract public void getWeather(String city) throws IOException;
 }

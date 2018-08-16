@@ -1,23 +1,27 @@
 package com.sample;
 
 import com.sample.model.WeatherData;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
+import org.json.JSONObject;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 
 public class Apixu extends WeatherWorker {
 
     private final String protocol = "https://";
-    private URL accuURL = new URL (protocol +
-            "api.apixu.com/v1/current.json?key=aec7101f8490422e85e152020181608&q=Paris");
+    private final String apixuURL = protocol +
+            "api.apixu.com/v1/current.json?key=aec7101f8490422e85e152020181608&q=";
 
-    public Apixu() throws MalformedURLException {}
+    Apixu() throws MalformedURLException {}
 
-    public void parseResponse() throws IOException {
-        String response = super.makeRequest(accuURL);
+    public void getWeather(String city) throws IOException {
+        URL targetURL = new URL(apixuURL + city);
+
+        String response = super.makeRequest(targetURL);
         JSONObject jsonobj = new JSONObject(response);
 
         JSONObject current = jsonobj.getJSONObject("current");
@@ -25,13 +29,27 @@ public class Apixu extends WeatherWorker {
         Double temperature = current.getDouble("temp_c");
         String weatherText = current.getJSONObject("condition").getString("text");
         int humidity = current.getInt("humidity");
-        double windSpeed = current.getDouble("wind_kph");
+        double windSpeed = convertSpeedToMPS(current.getDouble("wind_kph"));
 
-        WeatherData weatherData = new WeatherData("NY", temperature, weatherText, humidity, windSpeed);
+        WeatherData weatherData = new WeatherData(city, temperature, weatherText, humidity, windSpeed);
 
+        System.out.println("APIXU");
+        System.out.println("City " + weatherData.getCity());
         System.out.println("Temperature " + weatherData.getTemperature());
         System.out.println("WeatherText " + weatherData.getWeatherText());
         System.out.println("Humidity " + weatherData.getHumidity());
         System.out.println("WindSpeed "+ weatherData.getWindSpeed());
+        System.out.println("------------------");
+    }
+
+    private double convertSpeedToMPS(double speedInKMPH) {
+        DecimalFormat df;
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.getDefault());
+        symbols.setDecimalSeparator('.');
+        df = new DecimalFormat(".0", symbols);
+
+        double speedInMPS = Double.parseDouble(df.format(speedInKMPH / 3.6));
+
+        return speedInMPS;
     }
 }
