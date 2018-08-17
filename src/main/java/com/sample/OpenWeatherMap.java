@@ -1,6 +1,11 @@
 package com.sample;
 
+import com.fasterxml.classmate.AnnotationConfiguration;
 import com.sample.model.WeatherData;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -13,6 +18,8 @@ public class OpenWeatherMap extends WeatherWorker {
                     "api.openweathermap.org/data/2.5/weather?q=&units=metric&appid=0f7e10e45e9f252b5520a5137881a1c5";
 
     OpenWeatherMap() throws MalformedURLException {}
+
+    private static SessionFactory factory;
 
     public void getWeather(String city) throws IOException {
         String[] parts = openWeatherURL.split("q=");
@@ -37,5 +44,23 @@ public class OpenWeatherMap extends WeatherWorker {
         System.out.println("Humidity " + weatherData.getHumidity());
         System.out.println("WindSpeed "+ weatherData.getWindSpeed());
         System.out.println("------------------");
+
+        Session session = factory.openSession();
+        Transaction tx = null;
+        Integer employeeID = null;
+
+        try {
+            tx = session.beginTransaction();
+            employeeID = (Integer) session.save(weatherData);
+            tx.commit();
+            System.out.println("ID " + employeeID);
+        } catch (HibernateException e) {
+            if (tx!=null) tx.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+
+        tx.commit();
     }
 }
