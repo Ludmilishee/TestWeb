@@ -10,6 +10,9 @@ public class WeatherData implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
+    @Column(name = "service")
+    private String service;
+
     @Column(name = "city")
     private String city;
 
@@ -28,8 +31,9 @@ public class WeatherData implements Serializable {
     public WeatherData() {
     }
 
-    public WeatherData(String city, double temperature, String weatherText, int humidity,
+    public WeatherData(String service, String city, double temperature, String weatherText, int humidity,
                        double windSpeed) {
+        this.service = service;
         this.city = city;
         this.temperature = temperature;
         this.weatherText = weatherText;
@@ -83,5 +87,13 @@ public class WeatherData implements Serializable {
 
     public void setWindSpeed(double windSpeed) {
         this.windSpeed = windSpeed;
+    }
+
+    public String getService() {
+        return service;
+    }
+
+    public void setService(String service) {
+        this.service = service;
     }
 }

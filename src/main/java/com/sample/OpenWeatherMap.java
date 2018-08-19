@@ -8,11 +8,12 @@ import java.net.URL;
 
 public class OpenWeatherMap extends WeatherWorker {
     private final String protocol = "https://";
+    private final String service = "api.openweathermap.org";
     private final String openWeatherURL = protocol +
-            "api.openweathermap.org/data/2.5/weather?q=&units=metric&appid=0f7e10e45e9f252b5520a5137881a1c5";
+            service +
+            "/data/2.5/weather?q=&units=metric&appid=0f7e10e45e9f252b5520a5137881a1c5";
 
-    OpenWeatherMap() throws MalformedURLException {
-    }
+    OpenWeatherMap() throws MalformedURLException {}
 
     public WeatherData getWeather(String city) throws IOException {
         String[] parts = openWeatherURL.split("q=");
@@ -28,7 +29,7 @@ public class OpenWeatherMap extends WeatherWorker {
         int humidity = main.getInt("humidity");
         double windSpeed = jsonobj.getJSONObject("wind").getDouble("speed");
 
-        WeatherData weatherData = new WeatherData(city, temperature, weatherText, humidity, windSpeed);
+        WeatherData weatherData = new WeatherData(service, city, temperature, weatherText, humidity, windSpeed);
 
         return weatherData;
     }

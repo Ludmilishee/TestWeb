@@ -13,8 +13,10 @@ import java.util.Locale;
 public class Apixu extends WeatherWorker {
 
     private final String protocol = "https://";
+    private final String service = "api.apixu.com";
     private final String apixuURL = protocol +
-            "api.apixu.com/v1/current.json?key=aec7101f8490422e85e152020181608&q=";
+            service +
+            "/v1/current.json?key=aec7101f8490422e85e152020181608&q=";
 
     Apixu() throws MalformedURLException {}
 
@@ -31,7 +33,7 @@ public class Apixu extends WeatherWorker {
         int humidity = current.getInt("humidity");
         double windSpeed = convertSpeedToMPS(current.getDouble("wind_kph"));
 
-        WeatherData weatherData = new WeatherData(city, temperature, weatherText, humidity, windSpeed);
+        WeatherData weatherData = new WeatherData(service, city, temperature, weatherText, humidity, windSpeed);
 
         return weatherData;
     }

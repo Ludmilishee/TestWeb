@@ -1,9 +1,6 @@
 package com.sample;
 
 import com.sample.model.WeatherData;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,6 +10,8 @@ import java.net.URL;
 
 
 abstract class WeatherWorker {
+
+    WeatherWorker() throws MalformedURLException {}
 
     final String makeRequest(URL url) throws IOException {
         HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
@@ -36,8 +35,6 @@ abstract class WeatherWorker {
 
         return response.toString();
     }
-
-    WeatherWorker() throws MalformedURLException {}
 
     abstract public WeatherData getWeather(String city) throws IOException;
 }
