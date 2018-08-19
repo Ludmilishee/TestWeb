@@ -6,5 +6,10 @@
       <Current>1</Current>
       <Visible>1</Visible>
     </schema>
+    <table id="3" parent="2" name="hibernate_sequence"/>
+    <column id="4" parent="3" name="next_val">
+      <Position>1</Position>
+      <DataType>BIGINT(0,-1)|4</DataType>
+    </column>
   </database-model>
 </dataSource>

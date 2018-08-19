@@ -1,5 +1,7 @@
 D:\TestWeb\src\main\java\com\sample\WeatherWorker.java
 D:\TestWeb\src\main\java\com\sample\Apixu.java
 D:\TestWeb\src\main\java\com\sample\model\WeatherData.java
+D:\TestWeb\src\main\java\org\hibernate\dialect\SQLiteDialect.java
 D:\TestWeb\src\main\java\com\sample\OpenWeatherMap.java
 D:\TestWeb\src\main\java\com\sample\WeatherServlet.java
+D:\TestWeb\src\main\java\com\sample\DBWorker.java

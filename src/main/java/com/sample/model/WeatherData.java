@@ -1,28 +1,28 @@
 package com.sample.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 public class WeatherData implements Serializable {
 
-    private String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
 
-//    @Column(name = "city")
+    @Column(name = "city")
     private String city;
 
-//    @Column(name = "temperature")
+    @Column(name = "temperature")
     private double temperature;
 
-//    @Column(name = "weather_text")
+    @Column(name = "weather_text")
     private String weatherText;
 
-//    @Column(name = "humidity")
+    @Column(name = "humidity")
     private int humidity;
 
-//    @Column(name = "wind_speed")
+    @Column(name = "wind_speed")
     private double windSpeed;
 
     public WeatherData() {
@@ -37,12 +37,11 @@ public class WeatherData implements Serializable {
         this.windSpeed = windSpeed;
     }
 
-    @Id
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

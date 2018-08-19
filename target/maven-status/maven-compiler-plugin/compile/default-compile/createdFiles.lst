@@ -1,6 +1,8 @@
 com\sample\OpenWeatherMap.class
 com\sample\model\WeatherData.class
 com\sample\WeatherWorker.class
+org\hibernate\dialect\SQLiteDialect.class
 com\sample\DBWorker.class
 com\sample\WeatherServlet.class
+org\hibernate\dialect\SQLiteDialect$1.class
 com\sample\Apixu.class

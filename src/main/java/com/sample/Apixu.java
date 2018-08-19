@@ -18,7 +18,7 @@ public class Apixu extends WeatherWorker {
 
     Apixu() throws MalformedURLException {}
 
-    public void getWeather(String city) throws IOException {
+    public WeatherData getWeather(String city) throws IOException {
         URL targetURL = new URL(apixuURL + city);
 
         String response = super.makeRequest(targetURL);
@@ -33,13 +33,7 @@ public class Apixu extends WeatherWorker {
 
         WeatherData weatherData = new WeatherData(city, temperature, weatherText, humidity, windSpeed);
 
-        System.out.println("APIXU");
-        System.out.println("City " + weatherData.getCity());
-        System.out.println("Temperature " + weatherData.getTemperature());
-        System.out.println("WeatherText " + weatherData.getWeatherText());
-        System.out.println("Humidity " + weatherData.getHumidity());
-        System.out.println("WindSpeed "+ weatherData.getWindSpeed());
-        System.out.println("------------------");
+        return weatherData;
     }
 
     private double convertSpeedToMPS(double speedInKMPH) {
