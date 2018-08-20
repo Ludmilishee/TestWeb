@@ -1,14 +1,13 @@
 package com.sample;
 
 import com.sample.model.WeatherData;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import org.hibernate.*;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
@@ -52,14 +51,38 @@ public class DBWorker {
         }
     }
 
-    public static List<WeatherData> getTableData(Class tableClass) {
+    public static List<WeatherData> getTableData() {
         List<WeatherData> tableData;
         Session session = null;
 
         try
         {
             session = sessionFactory.openSession();
-            tableData = session.createCriteria(tableClass).list();
+            tableData = session.createCriteria(WeatherData.class).list();
+            session.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+            tableData = new ArrayList<>();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+
+        return tableData;
+    }
+
+    public static List<WeatherData> getWeatherByDateRange(Date startDate, Date endDate) {
+        List<WeatherData> tableData;
+        Session session = null;
+
+        try
+        {
+            session = sessionFactory.openSession();
+            Criteria criteria = session.createCriteria(WeatherData.class);
+            criteria.add(Restrictions.ge("date", startDate));
+            criteria.add(Restrictions.le("date", endDate));
+            tableData = criteria.list();
             session.flush();
         } catch (Exception e) {
             e.printStackTrace();

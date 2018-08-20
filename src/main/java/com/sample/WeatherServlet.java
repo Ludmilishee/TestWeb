@@ -12,17 +12,20 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.sql.SQLException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 @WebServlet(
         name = "weatherservlet",
-        urlPatterns = "/GetWeather",
+        urlPatterns = "/Weather",
         loadOnStartup = 1
 )
 public class WeatherServlet extends HttpServlet {
     private final String[] cities = { "Yekaterinburg", "Moscow", "London" };
+
+    private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
     @Override
     public void init() {
@@ -51,13 +54,29 @@ public class WeatherServlet extends HttpServlet {
 //            }
 //        }
 
-        WeatherData weatherData = new WeatherData("api.test.com", "TestCity", 22.2, "TestText", 72, 2.2);
+        WeatherData weatherData = new WeatherData("api.test.com", "TestCity", 22.2,
+                "TestText", 72, 2.2);
         DBWorker.save(weatherData);
+
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher view = req.getRequestDispatcher("index.jsp");
-        view.forward(req, resp);
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String startDateString = req.getParameter("start_date");
+        String endDateString = req.getParameter("end_date");
+
+        try {
+            Date startDate = formatter.parse(startDateString);
+            Date endDate = formatter.parse(startDateString);
+            System.out.println("AA " + startDateString + " to " + endDateString);
+            List<WeatherData> result = DBWorker.getWeatherByDateRange(startDate, endDate);
+            for (WeatherData weatherData : result) {
+                System.out.println(weatherData.toString());
+            }
+            System.out.println("TTTTTTTT " + result.size());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
     }
 }

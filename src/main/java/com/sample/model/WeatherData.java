@@ -2,6 +2,7 @@ package com.sample.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
@@ -18,7 +19,6 @@ public class WeatherData implements Serializable {
     private String city;
 
     @Column(name = "date")
-    @Temporal(TemporalType.DATE)
     private Date date;
 
     @Column(name = "temperature")
@@ -111,6 +111,10 @@ public class WeatherData implements Serializable {
 
     public Date getDate() {
         return date;
+    }
+
+    public String outputDateInFormat() {
+        return new SimpleDateFormat("yyyy.MM.dd HH:mm:ss").format(date);
     }
 
     public void setDate(Date date) {

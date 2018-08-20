@@ -6,8 +6,14 @@
 <!DOCTYPE html>
 <html>
 <body>
+    <form method="post" action="Weather">
+        Просмотр погоды
+        с <input type="date" name="start_date">
+        по <input type="date" name="end_date">
+        <input type="submit" value="Просмотреть">
+    </form>
     <%
-        List<WeatherData> weatherDataList = DBWorker.getTableData(WeatherData.class);
+        List<WeatherData> weatherDataList = DBWorker.getTableData();
         if (weatherDataList != null) {
     %>
     <table>
@@ -15,10 +21,10 @@
             <th>Сервис</th>
             <th>Город</th>
             <th>Дата</th>
-            <th>Температура</th>
+            <th>Температура, &deg;C</th>
             <th>Текст</th>
-            <th>Влажность</th>
-            <th>Скорость ветра</th>
+            <th>Влажность, %</th>
+            <th>Скорость ветра, м/с</th>
         </tr>
         <%
             for (WeatherData weatherData : weatherDataList) {
@@ -26,7 +32,7 @@
         <tr>
             <td><% out.println(weatherData.getService()); %></td>
             <td><% out.println(weatherData.getCity()); %></td>
-            <td><% out.println(weatherData.getDate()); %></td>
+            <td><% out.println(weatherData.outputDateInFormat()); %></td>
             <td><% out.println(weatherData.getTemperature()); %></td>
             <td><% out.println(weatherData.getWeatherText()); %></td>
             <td><% out.println(weatherData.getHumidity()); %></td>
