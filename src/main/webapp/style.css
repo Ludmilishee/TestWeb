@@ -1,0 +1,17 @@
+table, th, td {
+    border: 1px solid #bbb;
+    border-collapse: collapse;
+}
+
+table {
+    margin: auto;
+}
+
+th {
+    padding: 15px 10px;
+    background-color: #cef5ce;
+}
+
+td {
+    padding: 5px 15px;
+}

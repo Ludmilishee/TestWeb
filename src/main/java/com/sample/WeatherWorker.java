@@ -8,7 +8,6 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-
 abstract class WeatherWorker {
 
     WeatherWorker() throws MalformedURLException {}

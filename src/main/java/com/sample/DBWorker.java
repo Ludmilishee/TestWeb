@@ -8,18 +8,16 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
-
-import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 public class DBWorker {
 
-    private Connection connection = null;
-
     private static SessionFactory sessionFactory = null;
     private static ServiceRegistry serviceRegistry = null;
 
-    private static SessionFactory configureSessionFactory() throws HibernateException {
+    private static void configureSessionFactory() throws HibernateException {
         Configuration configuration = new Configuration();
         configuration.configure();
 
@@ -27,8 +25,6 @@ public class DBWorker {
 
         serviceRegistry = new ServiceRegistryBuilder().applySettings(properties).buildServiceRegistry();
         sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-
-        return sessionFactory;
     }
 
     public static void save(WeatherData weatherData) {
@@ -49,11 +45,31 @@ public class DBWorker {
         } catch (Exception ex) {
             ex.printStackTrace();
             tx.rollback();
-        } finally{
+        } finally {
             if (session != null) {
                 session.close();
             }
         }
     }
 
+    public static List<WeatherData> getTableData(Class tableClass) {
+        List<WeatherData> tableData;
+        Session session = null;
+
+        try
+        {
+            session = sessionFactory.openSession();
+            tableData = session.createCriteria(tableClass).list();
+            session.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+            tableData = new ArrayList<>();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+
+        return tableData;
+    }
 }

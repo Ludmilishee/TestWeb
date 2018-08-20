@@ -2,6 +2,7 @@ package com.sample.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 public class WeatherData implements Serializable {
@@ -15,6 +16,10 @@ public class WeatherData implements Serializable {
 
     @Column(name = "city")
     private String city;
+
+    @Column(name = "date")
+    @Temporal(TemporalType.DATE)
+    private Date date;
 
     @Column(name = "temperature")
     private double temperature;
@@ -35,10 +40,17 @@ public class WeatherData implements Serializable {
                        double windSpeed) {
         this.service = service;
         this.city = city;
+        this.date = new Date();
         this.temperature = temperature;
         this.weatherText = weatherText;
         this.humidity = humidity;
         this.windSpeed = windSpeed;
+    }
+
+    @Override
+    public String toString() {
+        return service + " " + city + " " + date + " " + temperature + " " + weatherText + " " +
+                humidity + " " + windSpeed;
     }
 
     public int getId() {
@@ -95,5 +107,13 @@ public class WeatherData implements Serializable {
 
     public void setService(String service) {
         this.service = service;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }
