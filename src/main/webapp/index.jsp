@@ -10,10 +10,20 @@
         Просмотр погоды
         с <input type="date" name="start_date">
         по <input type="date" name="end_date">
+        город
+        <select size="1" name="selectedCity">
+            <option value="none">Выберите город</option>
+            <option>Yekaterinburg</option>
+            <option>Moscow</option>
+            <option>London</option>
+        </select>
         <input type="submit" value="Просмотреть">
     </form>
     <%
-        List<WeatherData> weatherDataList = DBWorker.getTableData();
+        List<WeatherData> weatherDataList = (List) request.getAttribute("result");
+        if (weatherDataList == null) {
+            weatherDataList = DBWorker.getTableData();
+        }
         if (weatherDataList != null) {
     %>
     <table>

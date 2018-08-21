@@ -1,4 +1,6 @@
+com\sample\LoopRequest$1.class
 com\sample\OpenWeatherMap.class
+com\sample\LoopRequest.class
 com\sample\model\WeatherData.class
 com\sample\WeatherWorker.class
 org\hibernate\dialect\SQLiteDialect.class
