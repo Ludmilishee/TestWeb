@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 @WebServlet(
@@ -18,18 +17,20 @@ import java.util.List;
         loadOnStartup = 1
 )
 public class WeatherServlet extends HttpServlet {
-    private static SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private LoopRequest loopRequest;
 
     @Override
     public void init() {
         DBWorker.configureSessionFactory();
-        LoopRequest loopRequest = new LoopRequest();
+        loopRequest = new LoopRequest();
         Thread thread = new Thread(loopRequest);
         thread.start();
+    }
 
-//        WeatherData weatherData = new WeatherData("api.test.com", "Moscow", 22.2,
-//                "TestText", 72, 2.2);
-//        DBWorker.save(weatherData);
+    @Override
+    public void destroy() {
+        loopRequest.terminateTimer();
+        loopRequest = null;
     }
 
     @Override

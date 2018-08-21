@@ -31,26 +31,12 @@
             <artifactId>hibernate-core</artifactId>
             <version>4.1.4.Final</version>
         </dependency>
-
-        <!--&lt;!&ndash; https://mvnrepository.com/artifact/org.hibernate.dialect/sqlite-dialect &ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>org.hibernate.dialect</groupId>-->
-            <!--<artifactId>sqlite-dialect</artifactId>-->
-            <!--<version>0.1.0</version>-->
-        <!--</dependency>-->
-
-        <!--&lt;!&ndash; https://mvnrepository.com/artifact/net.kemitix/sqlite-dialect &ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>net.kemitix</groupId>-->
-            <!--<artifactId>sqlite-dialect</artifactId>-->
-            <!--<version>0.1.0</version>-->
-        <!--</dependency>-->
-
-        <!--<dependency>-->
-            <!--<groupId>com.zsoltfabok</groupId>-->
-            <!--<artifactId>sqlite-dialect</artifactId>-->
-            <!--<version>1.0</version>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.0.0-M4</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>

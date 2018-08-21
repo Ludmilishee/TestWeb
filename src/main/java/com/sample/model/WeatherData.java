@@ -57,56 +57,30 @@ public class WeatherData implements Serializable {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getCity() {
         return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
     }
 
     public double getTemperature() {
         return temperature;
     }
 
-    public void setTemperature(double temperature) {
-        this.temperature = temperature;
-    }
 
     public String getWeatherText() {
         return weatherText;
     }
 
-    public void setWeatherText(String weatherText) {
-        this.weatherText = weatherText;
-    }
 
     public int getHumidity() {
         return humidity;
-    }
-
-    public void setHumidity(int humidity) {
-        this.humidity = humidity;
     }
 
     public double getWindSpeed() {
         return windSpeed;
     }
 
-    public void setWindSpeed(double windSpeed) {
-        this.windSpeed = windSpeed;
-    }
-
     public String getService() {
         return service;
-    }
-
-    public void setService(String service) {
-        this.service = service;
     }
 
     public Date getDate() {
@@ -115,9 +89,5 @@ public class WeatherData implements Serializable {
 
     public String outputDateInFormat() {
         return new SimpleDateFormat("yyyy.MM.dd HH:mm:ss").format(date);
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
     }
 }

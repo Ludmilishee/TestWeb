@@ -1,7 +1,6 @@
 package com.sample;
 
 import com.sample.model.WeatherData;
-
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.Timer;
@@ -9,11 +8,17 @@ import java.util.TimerTask;
 
 public class LoopRequest implements Runnable {
 
-    private final String[] cities = { "Yekaterinburg", "Moscow", "London" };
+    private final String[] cities = {"Yekaterinburg", "Moscow", "London"};
 
     private Timer timer;
-    private boolean isTimerUp = true;
-    private Integer period = 1800000;
+    private Integer PERIOD = 1800000;
+
+    void terminateTimer() {
+        if (timer != null) {
+            timer.cancel();
+            timer.purge();
+        }
+    }
 
     private void requestServices() {
         OpenWeatherMap openWeatherMap = null;
@@ -43,29 +48,12 @@ public class LoopRequest implements Runnable {
 
     @Override
     public void run() {
-        while (true) {
-            if (isTimerUp) {
-                isTimerUp = false;
-                timer = new Timer(true);
-                timer.schedule(new TimerTask() {
-                    @Override
-                    public void run() {
-                        isTimerUp = true;
-                        requestServices();
-                        this.cancel();
-                    }
-                }, period);
+        timer = new Timer(true);
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                requestServices();
             }
-
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public void setPeriod(Integer period) {
-        this.period = period;
+        }, 0, PERIOD);
     }
 }

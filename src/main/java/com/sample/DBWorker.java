@@ -6,7 +6,6 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
